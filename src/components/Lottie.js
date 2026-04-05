@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactLottie from "lottie-react";
+import dynamic from 'next/dynamic';
+
+const ReactLottie = dynamic(() => import('lottie-react'), {
+  ssr: false,
+});
 
 // ----------------------------------------------------------------------
 

@@ -19,31 +19,37 @@ function ScrollProvider({ children }) {
   const [isScroll, setIsScroll] = useState(false);
 
   const jumpToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
   };
   
   const jumpToDown = () => {
-    window.scrollTo({
-      top: 600,
-      behavior: 'smooth',
-    });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({
+        top: 600,
+        behavior: 'smooth',
+      });
+    }
   };
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 70) {
+      if (typeof window !== 'undefined' && window.scrollY > 70) {
         setIsScroll(true);
       } else {
         setIsScroll(false);
       }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
   }, []);
 
   return (
